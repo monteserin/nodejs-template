@@ -16,4 +16,4 @@ router.post(
   })
 );
 
-export default (app) => app.use("/auth", router);
+export default (app, entityUrl) => app.use(entityUrl, router);
