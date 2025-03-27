@@ -1,7 +1,7 @@
 import UserModel from "../../user/model";
 
 const AuthService = () => ({
-  async signIn(providerToken) {
+  async signIn(token) {
     const credentials = decodeBase64Token(token);
     if (!credentials || !credentials.username || !credentials.password) {
       return res.status(400).json({ error: "Token inválido" });
