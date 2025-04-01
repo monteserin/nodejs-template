@@ -54,3 +54,7 @@ router.put("/:id", async (req, res) => {
 ## DOCUMENTATION
 
 http://localhost:3000/docs/
+
+## GENERAR LAS MIGRACIONES
+
+npx sequelize-cli migration:generate --name new-field-age

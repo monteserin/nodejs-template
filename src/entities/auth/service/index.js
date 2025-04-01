@@ -14,6 +14,8 @@ const AuthService = () => ({
     if (users.length === 0) {
       return res.status(401).json({ error: "Credenciais inválidas" });
     }
+
+    const user = users[0];
   },
 
   deleteUser(userProviderId) {
