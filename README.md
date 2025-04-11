@@ -58,3 +58,39 @@ http://localhost:3000/docs/
 ## GENERAR LAS MIGRACIONES
 
 npx sequelize-cli migration:generate --name new-field-age
+
+## CREACIÓN DE RELACIONES ONE TO MANY
+
+Author.associate = ({ book }) => {
+
+if (!book) {
+throw new Error("Book model is not defined");
+}
+Author.hasMany(book, { foreignKey: "fk_book", as: "stores" });
+
+};
+
+## CREACIÓN DE RELACIONES MANY TO MANY
+
+UserEvent.associate = (models) => {
+const { User, Event } = models;
+
+if (!User || !Event) {
+throw new Error("User or Event model is not defined");
+}
+
+User.belongsToMany(Event, {
+through: UserEvent,
+foreignKey: "fk_userId",
+onDelete: "CASCADE",
+});
+
+Event.belongsToMany(User, {
+through: UserEvent,
+foreignKey: "fk_eventId",
+onDelete: "CASCADE",
+});
+
+UserEvent.belongsTo(User, { foreignKey: "fk_userId" });
+UserEvent.belongsTo(Event, { foreignKey: "fk_eventId" });
+};
