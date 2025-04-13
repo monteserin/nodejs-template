@@ -2,7 +2,9 @@ import { db, DataTypes } from "@Application/database/db";
 
 const UserEvent = db.define("UserEvent", {});
 
-UserEvent.associate = ({ User, Event }) => {
+UserEvent.associate = (models) => {
+  console.log("Associating UserEvent with User and Event models", models);
+  const { User, Event } = models;
   User.belongsToMany(Event, {
     through: UserEvent,
   });

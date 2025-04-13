@@ -29,7 +29,7 @@ router.get(
   "/getUsersInEvent/:eventId",
   asyncHandler(async (req, res) => {
     const { eventId } = req.params;
-    const data = await Controller.getUsersInEventId(eventId);
+    const data = await Controller.getUsersByEventId(eventId);
     res.send(data);
   })
 );

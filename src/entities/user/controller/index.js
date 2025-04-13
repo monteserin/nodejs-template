@@ -1,8 +1,12 @@
 import Model from "../model";
+import UserEventModel from "../model/user-event";
 
 const Controller = {
   get(conditions) {
     return Model.get(conditions);
+  },
+  getUsersByEventId(eventId) {
+    return UserEventModel.getUserNamesByEventId(eventId);
   },
   // getById(id) {
   //   return Model.getById(id);
