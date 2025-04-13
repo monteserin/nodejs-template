@@ -1,0 +1,90 @@
+paths:
+  /events/:
+    get:
+      summary: Get all events
+      tags:
+        - Events
+      responses:
+        200:
+          description: Ok
+    post:
+      summary: Create
+      tags:
+        - Event
+      requestBody:
+        description: User data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                primaryUser:
+                  type: integer
+            examples:
+              Credentials exmaple:
+                value:
+                  name: burger en el rio
+                  primaryUser: 1
+      responses:
+        200:
+          description: Ok
+  /user/{id}:
+    delete:
+      summary: Delete event by id
+      tags:
+        - Event
+      parameters:
+        - name: id
+          in: path
+          required: true
+      responses:
+        200:
+          description: Ok
+    get:
+      summary: Get event by id
+      tags:
+        - Event
+      parameters:
+        - name: id
+          in: path
+          required: true
+          example: 1 
+      responses:
+        200:
+          description: Ok
+    put:
+      summary: Update event by id
+      tags:
+        - Event
+      parameters:
+        - name: id
+          in: path
+          required: true
+          example: 1
+      requestBody:
+        description: Event data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                    username:
+                      type: string
+                    password:
+                      type: string
+            examples:
+              Credentials exmaple:
+                value:
+                  email: aa@aa.com
+                  username: Paco
+                  password: 456
+      responses:
+        200:
+          description: Ok   

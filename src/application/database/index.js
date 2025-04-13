@@ -1,7 +1,4 @@
-import db, { DataTypes, forceSyncDatabase } from "./db";
-import { createMigrationTool } from "./migration-tool";
-
-export { db, DataTypes };
+import { db, forceCleanDatabase } from "./db";
 
 export const setAssociations = (db) => {
   Object.keys(db.models).forEach((modelName) => {
@@ -13,18 +10,12 @@ export const setAssociations = (db) => {
 
 export default async (onConnect) => {
   try {
-    await setAssociations(db);
+    setAssociations(db);
     await db.authenticate();
-
-    // Sync & Migrations
-    const { MigrationTool, setMigrationsAsDone } = await createMigrationTool(
-      db
-    );
-    if (!forceSyncDatabase) await MigrationTool.up();
-
-    await db.sync({ force: forceSyncDatabase });
-    if (forceSyncDatabase) await setMigrationsAsDone();
+    await db.sync({ force: forceCleanDatabase });
+    onConnect();
+    console.log("Database connection OK!");
   } catch (error) {
-    console.log("Unable to connect to the database:", error);
+    console.error("Unable to connect to the database:", error);
   }
 };

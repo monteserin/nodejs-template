@@ -2,7 +2,6 @@ import express from "express";
 import http from "http";
 import { Server } from "socket.io";
 import dotenv from "dotenv";
-import waitPort from "wait-port";
 
 // Load environment variables from .env file
 dotenv.config();
