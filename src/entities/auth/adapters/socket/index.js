@@ -5,8 +5,6 @@ const StartSocketServer = (io, socket) => {
   socket.on(
     "studentSuscribeOrLogInClassroom",
     socketHandler(async (msg) => {
-      console.log("aaaaaaaaaaaaaaaa", msg);
-
       io.emit("studentSuscribeOrLogInClassroom", msg);
     })
   );

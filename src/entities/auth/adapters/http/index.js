@@ -10,8 +10,33 @@ const router = express.Router();
 router.post(
   "/login",
   asyncHandler(async (req, res) => {
-    const data = await Controller.login(req.body.token);
-    console.log(data);
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      console.log("3333333333333");
+      return res.status(400);
+    }
+
+    const user = await Controller.login(email, password);
+    console.log("111111111", user);
+    if (!user) {
+      console.log("22222222222222");
+      return res.status(401);
+    }
+
+    res.send(user);
+  })
+);
+
+router.post(
+  "/sign-up",
+  asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400);
+    }
+
+    const data = await Controller.signUp(email, password);
     res.send(data);
   })
 );

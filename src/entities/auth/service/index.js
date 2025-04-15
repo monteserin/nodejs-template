@@ -1,21 +1,40 @@
 import UserModel from "../../user/model";
+import jwt from "jsonwebtoken";
 
 const AuthService = () => ({
-  async signIn(token) {
-    const credentials = decodeBase64Token(token);
-    if (!credentials || !credentials.username || !credentials.password) {
-      return res.status(400).json({ error: "Token inválido" });
-    }
+  async signUp(email, password) {
+    const user = await UserModel.create({ email, password });
+    return user;
+  },
+  async signIn(email, password) {
+    console.log(1111);
+    const user = await UserModel.findOne({ where: { email, password } });
+    console.log(222222222);
+    if (!user) return null;
 
-    const { username, password } = credentials;
+    const tokenPayload = { id: user.id, email };
 
-    const users = await UserModel.get({ username, password });
+    const token = jwt.sign(
+      {
+        data: tokenPayload,
+      },
+      "SECRET",
+      { expiresIn: "15m" }
+    );
 
-    if (users.length === 0) {
-      return res.status(401).json({ error: "Credenciais inválidas" });
-    }
+    const refreshToken = jwt.sign(
+      {
+        data: tokenPayload,
+      },
+      "SECRET",
+      { expiresIn: "1h" }
+    );
 
-    const user = users[0];
+    return {
+      user,
+      token,
+      refreshToken,
+    };
   },
 
   deleteUser(userProviderId) {

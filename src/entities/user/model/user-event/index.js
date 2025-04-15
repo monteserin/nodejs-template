@@ -7,15 +7,12 @@ const Model = {
   ...GenericModel(Schema),
 
   // Obtener nombres de usuario por ID de evento
-  async getUserNamesByEventId(eventId) {
-    return User.findAll({
-      include: {
-        model: UserEvent,
-        required: true,
-        where: { eventId },
-      },
-      attributes: ["userName"],
+  async getUserNamesByEventId(EventId) {
+    const userEvents = await UserEvent.findAll({
+      where: { EventId },
+      include: User,
     });
+    return userEvents.map((user) => user.User);
   },
 };
 

@@ -83,3 +83,16 @@ UserEvent.belongsTo(Event, {
 foreignKey: { allowNull: false },
 });
 };
+
+## AUTH
+
+- Login with user + password
+  - Token: 15 min expiration
+  - Encrypt password
+  - Refresh token: 2h
+- Middleware para rutas privadas que compruebe el token en un header 'Authorization'
+  - 401 if token expired
+  - next() if token is fine
+- Endpoint refresh: pasamos el refresh y nos da un nuevo token
+  - Primera versión POST con payload
+  - Segunda version cookie HTTP only 'withCredentials'

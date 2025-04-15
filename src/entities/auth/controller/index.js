@@ -1,9 +1,12 @@
-import Service from '../service';
+import Service from "../service";
 
 const Controller = {
-    login(token) {
-        return Service().signIn(token);
-    }
-}
+  login(email, password) {
+    return Service().signIn(email, password);
+  },
+  signUp(email, password) {
+    return Service().signUp(email, password);
+  },
+};
 
 export default Controller;
