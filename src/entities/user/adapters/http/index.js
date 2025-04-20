@@ -8,25 +8,25 @@ const router = express.Router();
 
 router.get(
   "/",
+  restrictedAccess,
   asyncHandler(async (req, res) => {
     const data = await Controller.get();
     res.send(data);
   })
 );
 
-router.post(
-  "/",
+router.get(
+  "/me",
+  restrictedAccess,
   asyncHandler(async (req, res) => {
-    const {
-      body: { email, username, password },
-    } = req;
-    await Controller.create({ email, username, password });
-    res.send("Usuario creado con éxito!!");
+    const data = await Controller.getById(req.userId);
+    res.send(data);
   })
 );
 
 router.get(
-  "/getUsersInEvent/:eventId",
+  "/get-users-in-event/:eventId",
+  restrictedAccess,
   asyncHandler(async (req, res) => {
     const { eventId } = req.params;
     const data = await Controller.getUsersByEventId(eventId);

@@ -7,9 +7,7 @@ const AuthService = () => ({
     return user;
   },
   async signIn(email, password) {
-    console.log(1111);
     const user = await UserModel.findOne({ where: { email, password } });
-    console.log(222222222);
     if (!user) return null;
 
     const tokenPayload = { id: user.id, email };

@@ -8,9 +8,9 @@ const Controller = {
   getUsersByEventId(eventId) {
     return UserEventModel.getUserNamesByEventId(eventId);
   },
-  // getById(id) {
-  //   return Model.getById(id);
-  // },
+  getById(id) {
+    return Model.getById(id);
+  },
   // create(data) {
   //   return Model.create(data);
   // },
